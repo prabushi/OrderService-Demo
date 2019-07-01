@@ -1,0 +1,7 @@
+{
+"name":"Bob",
+"items":[
+{"itemId" : 1, "price": 50},
+{"itemId" : 2, "price": 100}
+]
+}

@@ -1,0 +1,9 @@
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/">
+                                    <soapenv:Header/>
+                                    <soapenv:Body>
+                                        <placeOrder xmlns="">
+                                            <name>Bob</name>
+                                            <items><item><id>1</id><price>50</price></item><item><id>1</id><price>50</price></item></items>
+                                        </placeOrder>
+                                    </soapenv:Body>
+                                </soapenv:Envelope>
