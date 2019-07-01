@@ -1,0 +1,14 @@
+map_S_root_S_Envelope = function(){ 
+var outputsoapenv_Envelope={};
+
+outputsoapenv_Envelope =  {};
+outputsoapenv_Envelope.soapenv_Body =  {};
+outputsoapenv_Envelope.soapenv_Body.placeOrder =  {};
+outputsoapenv_Envelope.soapenv_Body.placeOrder.items =  {};
+return outputsoapenv_Envelope;
+};
+
+
+
+
+

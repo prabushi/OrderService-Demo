@@ -1,0 +1,28 @@
+map_S_root_S_Envelope = function(){ 
+var outputsoapenv_Envelope={};
+
+var count_i_items = 0;
+outputsoapenv_Envelope =  {};
+outputsoapenv_Envelope.soapenv_Body =  {};
+outputsoapenv_Envelope.soapenv_Body.placeOrder =  {};
+outputsoapenv_Envelope.soapenv_Body.placeOrder.name = inputroot.name;
+outputsoapenv_Envelope.soapenv_Body.placeOrder.items =  {};
+outputsoapenv_Envelope.soapenv_Body.placeOrder.items.item =  [];
+
+for(i_items in inputroot.items){
+outputsoapenv_Envelope.soapenv_Body.placeOrder.items.item[count_i_items] =  {};
+outputsoapenv_Envelope.soapenv_Body.placeOrder.items.item[count_i_items].id = inputroot.items[i_items].itemId;
+outputsoapenv_Envelope.soapenv_Body.placeOrder.items.item[count_i_items].price = inputroot.items[i_items].price;
+
+count_i_items++;
+}
+return outputsoapenv_Envelope;
+};
+
+
+
+
+
+
+
+

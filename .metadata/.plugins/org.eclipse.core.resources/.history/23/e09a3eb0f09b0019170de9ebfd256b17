@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<api context="/abcafe" name="ABCafe" xmlns="http://ws.apache.org/ns/synapse">
+    <resource methods="POST GET" uri-template="/placeorder">
+        <inSequence>
+            <log level="full">
+                <property name="Message" value="Placing a new order !!"/>
+            </log>
+            <clone>
+                <target>
+                    <sequence>
+                        <datamapper config="gov:datamapper/OrderConfig.dmc" inputSchema="gov:datamapper/OrderConfig_inputSchema.json" inputType="JSON" outputSchema="gov:datamapper/OrderConfig_outputSchema.json" outputType="XML" xsltStyleSheet="gov:datamapper/OrderConfig_xsltStyleSheet.xml"/>
+                        <call>
+                            <endpoint key="conf:endpoints/OrderEndpoint.xml"/>
+                        </call>
+                        <respond/>
+                    </sequence>
+                </target>
+                <target>
+                    <sequence>
+                        <propertyGroup>
+                            <property expression="$body" name="payload" scope="default" type="STRING"/>
+                            <property expression="get-property(&quot;SYSTEM_DATE&quot;, &quot;yyyy-MM-dd'T'HH:mm:ss.SSSXXX&quot;)" name="FName" scope="default" type="STRING"/>
+                            <property expression="fn:concat('/home/prabushi/Downloads/packs/file/' , get-property('default', 'FName'))" name="sourceURL" scope="default" type="STRING"/>
+                        </propertyGroup>
+                        <fileconnector.create>
+                            <source>{$ctx:sourceURL}</source>
+                            <inputContent>{$ctx:payload}</inputContent>
+                            <setTimeout>10000</setTimeout>
+                            <setSoTimeout>10000</setSoTimeout>
+                            <setStrictHostKeyChecking>no</setStrictHostKeyChecking>
+                            <setUserDirIsRoot>false</setUserDirIsRoot>
+                        </fileconnector.create>
+                        <drop/>
+                    </sequence>
+                </target>
+            </clone>
+        </inSequence>
+        <outSequence/>
+        <faultSequence/>
+    </resource>
+    <resource methods="POST GET" uri-template="/cancelorder">
+        <inSequence>
+            <log level="full">
+                <property name="Message" value="Cancelling an order !!"/>
+            </log>
+            <payloadFactory media-type="xml">
+                <format>
+                    <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/">
+                        <soapenv:Header/>
+                        <soapenv:Body>
+                            <cancelOrder xmlns="">
+                                <id>$1</id>
+                            </cancelOrder>
+                        </soapenv:Body>
+                    </soapenv:Envelope>
+                </format>
+                <args>
+                    <arg evaluator="xml" expression="//id"/>
+                </args>
+            </payloadFactory>
+            <call>
+                <endpoint key="conf:endpoints/OrderEndpoint.xml"/>
+            </call>
+            <respond/>
+        </inSequence>
+        <outSequence/>
+        <faultSequence/>
+    </resource>
+    <resource methods="POST GET" uri-template="/updateorder">
+        <inSequence>
+            <log level="full">
+                <property name="Message" value="Updating an order !!"/>
+            </log>
+            <payloadFactory media-type="xml">
+                <format>
+                    <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/">
+                        <soapenv:Header/>
+                        <soapenv:Body>
+                            <updateOrder xmlns="">
+                                <id>$1</id>
+                                <newValue>$2</newValue>
+                                <item>$3</item>
+                            </updateOrder>
+                        </soapenv:Body>
+                    </soapenv:Envelope>
+                </format>
+                <args>
+                    <arg evaluator="xml" expression="//id"/>
+                    <arg evaluator="xml" expression="//name"/>
+                    <arg evaluator="xml" expression="//itemid"/>
+                </args>
+            </payloadFactory>
+            <call>
+                <endpoint key="conf:endpoints/OrderEndpoint.xml"/>
+            </call>
+            <respond/>
+        </inSequence>
+        <outSequence/>
+        <faultSequence/>
+    </resource>
+</api>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<api context="/abcafe" name="ABCafe" xmlns="http://ws.apache.org/ns/synapse">
+    <resource methods="GET" uri-template="/placeorder">
+        <inSequence>
+            <log level="full">
+                <property name="Place order" value=""/>
+            </log>
+        </inSequence>
+        <outSequence/>
+        <faultSequence/>
+    </resource>
+    <resource methods="GET" uri-template="/cancelorder">
+        <inSequence/>
+        <outSequence/>
+        <faultSequence/>
+    </resource>
+</api>

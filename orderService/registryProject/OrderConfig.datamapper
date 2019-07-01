@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<datamapper:DataMapperRoot xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:datamapper="http:///org/wso2/developerstudio/eclipse/gmf/datamapper">
+  <input>
+    <treeNode name="root" schemaDataType="OBJECT" level="1">
+      <node name="name" schemaDataType="STRING" level="2">
+        <properties key="type" value="string"/>
+        <properties key="id" value="http://wso2jsonschema.org/name"/>
+        <properties key="nullable" value="false"/>
+        <outNode>
+          <outgoingLink inNode="//@output/@treeNode.0/@node.1/@node.0/@node.0/@inNode"/>
+        </outNode>
+        <inNode/>
+      </node>
+      <node name="items" level="2">
+        <node name="itemId" schemaDataType="NUMBER" level="3">
+          <properties key="type" value="number"/>
+          <properties key="id" value="http://wso2jsonschema.org/items/0/itemId"/>
+          <properties key="nullable" value="false"/>
+          <outNode>
+            <outgoingLink inNode="//@output/@treeNode.0/@node.1/@node.0/@node.1/@node.0/@node.0/@inNode"/>
+          </outNode>
+          <inNode/>
+        </node>
+        <node name="price" schemaDataType="NUMBER" level="3">
+          <properties key="type" value="number"/>
+          <properties key="id" value="http://wso2jsonschema.org/items/0/price"/>
+          <properties key="nullable" value="false"/>
+          <outNode>
+            <outgoingLink inNode="//@output/@treeNode.0/@node.1/@node.0/@node.1/@node.0/@node.1/@inNode"/>
+          </outNode>
+          <inNode/>
+        </node>
+        <properties key="type" value="array"/>
+        <properties key="id" value="http://wso2jsonschema.org/items"/>
+        <properties key="items_id" value="http://wso2jsonschema.org/items/0"/>
+        <properties key="items_type" value="object"/>
+        <properties key="nullable" value="false"/>
+        <properties key="properties_id" value="{itemId={id=http://wso2jsonschema.org/items/0/itemId, type=number}, price={id=http://wso2jsonschema.org/items/0/price, type=number}}"/>
+        <outNode/>
+        <inNode/>
+      </node>
+      <properties key="type" value="object"/>
+      <properties key="$schema" value="http://wso2.org/json-schema/wso2-data-mapper-v5.0.0/schema#"/>
+      <properties key="id" value="http://wso2jsonschema.org"/>
+      <properties key="nullable" value="false"/>
+      <outNode/>
+      <inNode/>
+    </treeNode>
+  </input>
+  <output>
+    <treeNode name="soapenv:Envelope" schemaDataType="OBJECT" level="1">
+      <node name="soapenv:Header" schemaDataType="NULL" level="2">
+        <properties key="namespaces" value="{prefix=soapenv, url=http://schemas.xmlsoap.org/soap/envelope/}"/>
+        <properties key="type" value="null"/>
+        <properties key="id" value="http://wso2jsonschema.org/soapenv:Header"/>
+        <properties key="nullable" value="false"/>
+        <outNode/>
+        <inNode/>
+      </node>
+      <node name="soapenv:Body" schemaDataType="OBJECT" level="2">
+        <node name="placeOrder" schemaDataType="OBJECT" level="3">
+          <node name="name" schemaDataType="STRING" level="4">
+            <properties key="type" value="string"/>
+            <properties key="id" value="http://wso2jsonschema.org/soapenv:Body/placeOrder/name"/>
+            <properties key="nullable" value="false"/>
+            <outNode/>
+            <inNode incomingLink="//@input/@treeNode.0/@node.0/@outNode/@outgoingLink.0"/>
+          </node>
+          <node name="items" schemaDataType="OBJECT" level="4">
+            <node name="item" level="5">
+              <node name="id" schemaDataType="NUMBER" level="6">
+                <properties key="type" value="number"/>
+                <properties key="id" value="http://wso2jsonschema.org/soapenv:Body/placeOrder/items/item/0/id"/>
+                <properties key="nullable" value="false"/>
+                <outNode/>
+                <inNode incomingLink="//@input/@treeNode.0/@node.1/@node.0/@outNode/@outgoingLink.0"/>
+              </node>
+              <node name="price" schemaDataType="NUMBER" level="6">
+                <properties key="type" value="number"/>
+                <properties key="id" value="http://wso2jsonschema.org/soapenv:Body/placeOrder/items/item/0/price"/>
+                <properties key="nullable" value="false"/>
+                <outNode/>
+                <inNode incomingLink="//@input/@treeNode.0/@node.1/@node.1/@outNode/@outgoingLink.0"/>
+              </node>
+              <properties key="type" value="array"/>
+              <properties key="id" value="http://wso2jsonschema.org/soapenv:Body/placeOrder/items/item"/>
+              <properties key="items_id" value="http://wso2jsonschema.org/soapenv:Body/placeOrder/items/item/0"/>
+              <properties key="items_type" value="object"/>
+              <properties key="nullable" value="false"/>
+              <properties key="properties_id" value="{id={id=http://wso2jsonschema.org/soapenv:Body/placeOrder/items/item/0/id, type=number}, price={id=http://wso2jsonschema.org/soapenv:Body/placeOrder/items/item/0/price, type=number}}"/>
+              <outNode/>
+              <inNode/>
+            </node>
+            <properties key="type" value="object"/>
+            <properties key="id" value="http://wso2jsonschema.org/soapenv:Body/placeOrder/items"/>
+            <properties key="nullable" value="false"/>
+            <properties key="properties_id" value="{item={id=http://wso2jsonschema.org/soapenv:Body/placeOrder/items/item, type=array, items=[{id=http://wso2jsonschema.org/soapenv:Body/placeOrder/items/item/0, type=object, properties={id={id=http://wso2jsonschema.org/soapenv:Body/placeOrder/items/item/0/id, type=number}, price={id=http://wso2jsonschema.org/soapenv:Body/placeOrder/items/item/0/price, type=number}}}]}}"/>
+            <outNode/>
+            <inNode/>
+          </node>
+          <properties key="type" value="object"/>
+          <properties key="id" value="http://wso2jsonschema.org/soapenv:Body/placeOrder"/>
+          <properties key="nullable" value="false"/>
+          <properties key="properties_id" value="{name={id=http://wso2jsonschema.org/soapenv:Body/placeOrder/name, type=string}, items={id=http://wso2jsonschema.org/soapenv:Body/placeOrder/items, type=object, properties={item={id=http://wso2jsonschema.org/soapenv:Body/placeOrder/items/item, type=array, items=[{id=http://wso2jsonschema.org/soapenv:Body/placeOrder/items/item/0, type=object, properties={id={id=http://wso2jsonschema.org/soapenv:Body/placeOrder/items/item/0/id, type=number}, price={id=http://wso2jsonschema.org/soapenv:Body/placeOrder/items/item/0/price, type=number}}}]}}}}"/>
+          <outNode/>
+          <inNode/>
+        </node>
+        <properties key="namespaces" value="{prefix=soapenv, url=http://schemas.xmlsoap.org/soap/envelope/}"/>
+        <properties key="type" value="object"/>
+        <properties key="id" value="http://wso2jsonschema.org/soapenv:Body"/>
+        <properties key="nullable" value="false"/>
+        <properties key="properties_id" value="{placeOrder={id=http://wso2jsonschema.org/soapenv:Body/placeOrder, type=object, properties={name={id=http://wso2jsonschema.org/soapenv:Body/placeOrder/name, type=string}, items={id=http://wso2jsonschema.org/soapenv:Body/placeOrder/items, type=object, properties={item={id=http://wso2jsonschema.org/soapenv:Body/placeOrder/items/item, type=array, items=[{id=http://wso2jsonschema.org/soapenv:Body/placeOrder/items/item/0, type=object, properties={id={id=http://wso2jsonschema.org/soapenv:Body/placeOrder/items/item/0/id, type=number}, price={id=http://wso2jsonschema.org/soapenv:Body/placeOrder/items/item/0/price, type=number}}}]}}}}}}"/>
+        <outNode/>
+        <inNode/>
+      </node>
+      <properties key="namespaces" value="{prefix=soapenv, url=http://schemas.xmlsoap.org/soap/envelope/}"/>
+      <properties key="namespaces" value="{prefix=soapenv, url=http://schemas.xmlsoap.org/soap/envelope/}"/>
+      <properties key="type" value="object"/>
+      <properties key="$schema" value="http://wso2.org/json-schema/wso2-data-mapper-v5.0.0/schema#"/>
+      <properties key="id" value="http://wso2jsonschema.org"/>
+      <properties key="nullable" value="false"/>
+      <outNode/>
+      <inNode/>
+    </treeNode>
+  </output>
+</datamapper:DataMapperRoot>

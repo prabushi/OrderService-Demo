@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<proxy name="LegacyBackend" startOnLoad="true" transports="http https" xmlns="http://ws.apache.org/ns/synapse">
+    <target>
+        <inSequence>
+            <filter xpath="//placeOrder">
+                <then>
+                    <payloadFactory media-type="json">
+                        <format>{"Message" : "Successfully placed the order.", "Order details": {"ID" : "1234", "Customer Name":"ABCD", "Price" : "USD 150"}}</format>
+                        <args/>
+                    </payloadFactory>
+                    <respond/>
+                </then>
+                <else>
+                    <filter xpath="//cancelOrder">
+                        <then>
+                            <payloadFactory media-type="json">
+                                <format>{"Message" : "Successfully cancelled the order.", "Order Id": "5678"}</format>
+                                <args/>
+                            </payloadFactory>
+                            <respond/>
+                        </then>
+                        <else>
+                            <payloadFactory media-type="json">
+                                <format>{"Message" : "Successfully updated the order.", "Order details": {"ID" : "1234", "Customer Name":"ABCD", "Price" : "$$ 150"}}</format>
+                                <args/>
+                            </payloadFactory>
+                            <respond/>
+                        </else>
+                    </filter>
+                </else>
+            </filter>
+        </inSequence>
+        <outSequence/>
+        <faultSequence/>
+    </target>
+</proxy>

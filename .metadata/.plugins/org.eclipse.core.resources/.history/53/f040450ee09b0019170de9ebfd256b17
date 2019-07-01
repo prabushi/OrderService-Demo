@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<api context="/abcafe" name="ABCafe" xmlns="http://ws.apache.org/ns/synapse">
+    <resource methods="POST GET" uri-template="/placeorder">
+        <inSequence>
+            <log level="full">
+                <property name="Place order" value="***"/>
+            </log>
+            <property expression="$body" name="BODY" scope="default" type="STRING"/>
+            <property name="FName" scope="default" type="STRING" value="test.txt"/>
+            <property expression="fn:concat('file:///home/prabushi/Downloads/packs/file/' , get-property('default', 'FName'))" name="sourceURL" scope="default" type="STRING"/>
+            <log level="full">
+                <property expression="$ctx:sourceURL" name="Place order"/>
+            </log>
+            <payloadFactory media-type="xml">
+                <format>
+                    <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/">
+                        <soapenv:Header/>
+                        <soapenv:Body>
+                            <placeOrder xmlns="">
+                                <name>$1</name>
+                                <item>$2</item>
+                            </placeOrder>
+                        </soapenv:Body>
+                    </soapenv:Envelope>
+                </format>
+                <args>
+                    <arg evaluator="xml" expression="//name"/>
+                    <arg evaluator="xml" expression="//itemid"/>
+                </args>
+            </payloadFactory>
+            <call>
+                <endpoint key="conf:endpoints/OrderEndpoint.xml"/>
+            </call>
+            <log level="full">
+                <property name="before file" value="***"/>
+            </log>
+            <fileconnector.append>
+                <destination>/home/prabushi/Downloads/packs/file/test.txt</destination>
+                <inputContent>{$ctx:BODY}</inputContent>
+            </fileconnector.append>
+            <respond/>
+        </inSequence>
+        <outSequence/>
+        <faultSequence/>
+    </resource>
+    <resource methods="POST GET" uri-template="/cancelorder">
+        <inSequence>
+            <log level="full">
+                <property name="Cancel order" value="***"/>
+            </log>
+            <payloadFactory media-type="xml">
+                <format>
+                    <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/">
+                        <soapenv:Header/>
+                        <soapenv:Body>
+                            <cancelOrder xmlns="">
+                                <id>$1</id>
+                            </cancelOrder>
+                        </soapenv:Body>
+                    </soapenv:Envelope>
+                </format>
+                <args>
+                    <arg evaluator="xml" expression="//id"/>
+                </args>
+            </payloadFactory>
+            <call>
+                <endpoint key="conf:endpoints/OrderEndpoint.xml"/>
+            </call>
+            <respond/>
+        </inSequence>
+        <outSequence/>
+        <faultSequence/>
+    </resource>
+    <resource methods="POST GET" uri-template="/updateorder">
+        <inSequence>
+            <log level="full">
+                <property name="Update order" value="***"/>
+            </log>
+            <payloadFactory media-type="xml">
+                <format>
+                    <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/">
+                        <soapenv:Header/>
+                        <soapenv:Body>
+                            <updateOrder xmlns="">
+                                <id>$1</id>
+                                <name>$2</name>
+                                <item>$3</item>
+                            </updateOrder>
+                        </soapenv:Body>
+                    </soapenv:Envelope>
+                </format>
+                <args>
+                    <arg evaluator="xml" expression="//id"/>
+                    <arg evaluator="xml" expression="//name"/>
+                    <arg evaluator="xml" expression="//itemid"/>
+                </args>
+            </payloadFactory>
+            <call>
+                <endpoint key="conf:endpoints/OrderEndpoint.xml"/>
+            </call>
+            <respond/>
+        </inSequence>
+        <outSequence/>
+        <faultSequence/>
+    </resource>
+</api>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<proxy name="backend" startOnLoad="true" transports="http https" xmlns="http://ws.apache.org/ns/synapse">
+    <target>
+        <inSequence>
+            <filter xpath="//create">
+                <then>
+                    <payloadFactory media-type="xml">
+                        <format>
+                            <inline xmlns=""/>
+                        </format>
+                        <args/>
+                    </payloadFactory>
+                </then>
+                <else/>
+            </filter>
+        </inSequence>
+        <outSequence/>
+        <faultSequence/>
+    </target>
+</proxy>
